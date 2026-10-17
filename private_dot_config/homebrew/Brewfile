@@ -1,0 +1,208 @@
+tap "am2rican5/sigye"
+tap "anomalyco/tap"
+tap "aquaproj/aqua"
+tap "can1357/tap"
+tap "manaflow-ai/cmux"
+tap "my-monkeys/tap"
+tap "netbirdio/tap"
+tap "nikitabobko/tap"
+tap "qzz0518/tap"
+tap "rockythink/tap"
+tap "stablyai/orca"
+# Simple, modern, secure file encryption
+brew "age"
+# Improved shell history for zsh, bash, fish and nushell
+brew "atuin", restart_service: :changed
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# Multi-shell multi-command argument completer
+brew "carapace"
+# Tool for emulating mouse and keyboard events
+brew "cliclick"
+# Diff that understands syntax
+brew "difftastic"
+# Load/unload environment variables based on $PWD
+brew "direnv"
+# Modern, maintained replacement for ls
+brew "eza"
+# Create thumbnails for your video files
+brew "ffmpegthumbnailer"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# Distributed revision control system
+brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Git extension for versioning large files
+brew "git-lfs"
+# Task is a task runner/build tool that aims to be simpler and easier to use
+brew "go-task"
+# Slightly more awesome Standard Unix Password Manager for Teams
+brew "gopass"
+# Agent multiplexer that lives in your terminal
+brew "herdr"
+# Development kit for the Java programming language
+brew "openjdk"
+# Dex to Java decompiler
+brew "jadx"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Move files and folders to the trash
+brew "macos-trash"
+# Mac App Store command-line interface
+brew "mas"
+# Java-based project management
+brew "maven"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# MMDB file management CLI supporting various operations on MMDB database files
+brew "mmdbctl"
+# Deep clean and optimize your Mac
+brew "mole"
+# Open source relational database management system
+brew "mysql-client"
+# Interactive cheatsheet tool for the command-line
+brew "navi"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Persistent key-value database, with built-in net interface
+brew "redis"
+# Fast, configurable, shell plugin manager
+brew "sheldon"
+# Cross-shell prompt for astronauts
+brew "starship"
+# Command-line tool to interact with Gitea servers
+brew "tea"
+# Terminal multiplexer
+brew "tmux"
+# Minimal, todo.txt-focused editor
+brew "todo-txt"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
+# Zsh plugin manager
+brew "zimfw"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# UNIX shell (command interpreter)
+brew "zsh"
+# Beautiful terminal clock with ASCII art fonts
+brew "am2rican5/sigye/sigye", trusted: true
+# Coding agent with the IDE wired in
+brew "can1357/tap/omp", trusted: true
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace", trusted: true
+cask "aqua"
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
+# Terminal-based AI coding assistant
+cask "claude-code"
+# Ghostty-based terminal with vertical tabs and notifications for AI coding agents
+cask "cmux"
+# Server and cloud storage browser
+cask "cyberduck"
+# Database management tool
+cask "dbx"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+# Forward WeChat chat history to Codex, Claude or any app from the Share menu
+cask "qzz0518/tap/dukou", trusted: true
+cask "font-lxgw-wenkai"
+cask "font-maple-mono-nf-cn"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Web browser
+cask "google-chrome"
+# Homebrew's official GUI
+cask "homebrew-app"
+# JetBrains tools manager
+cask "jetbrains-toolbox"
+# Keyboard customiser
+cask "karabiner-elements"
+# Open-source keystroke visualiser
+cask "keycastr"
+# Utility to open, create and modify archive files
+cask "maczip"
+# Smooths scrolling and set mouse scroll directions independently
+cask "mos"
+# Open-source software for live streaming and screen recording
+cask "obs"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+cask "opensuperwhisper"
+# IDE for orchestrating AI coding agents across terminals and worktrees
+cask "stablyai/orca/orca", trusted: true
+# Control your tools with a few keystrokes
+cask "raycast"
+# Open source virtual/remote desktop application
+cask "rustdesk"
+# Snip or pin screenshots
+cask "snipaste"
+# App to switch hosts
+cask "switchhosts"
+# Cleanup and system status tool
+cask "tencent-lemon"
+# Menu bar manager
+cask "thaw"
+# Open-source code editor
+cask "visual-studio-code"
+# Multimedia player
+cask "vlc"
+# Tencent AI Assistant with Hunyuan and DeepSeek LLMs
+cask "yuanbao"
+mas "Bitwarden", id: 1352778147
+mas "QQ", id: 451108668
+mas "Windows App", id: 1295203466
+mas "WPS Office", id: 1443749478
+mas "微信", id: 836500024
+mas "百度网盘", id: 547166701
+mas "网易云音乐", id: 944848654
+mas "腾讯会议", id: 1484048379
+mas "钉钉", id: 1435447041
+mas "飞书", id: 1551632588
+vscode "catppuccin.catppuccin-vsc"
+vscode "davidanson.vscode-markdownlint"
+vscode "dracula-theme.theme-dracula"
+vscode "editorconfig.editorconfig"
+vscode "github.remotehub"
+vscode "harryhopkinson.vim-theme"
+vscode "hediet.vscode-drawio"
+vscode "illixion.vscode-vibrancy-continued"
+vscode "metaphore.kanagawa-vscode-color-theme"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-python.vscode-python-envs"
+vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode-remote.remote-wsl"
+vscode "ms-vscode-remote.vscode-remote-extensionpack"
+vscode "ms-vscode.azure-repos"
+vscode "ms-vscode.remote-explorer"
+vscode "ms-vscode.remote-repositories"
+vscode "ms-vscode.remote-server"
+vscode "redhat.java"
+vscode "redhat.vscode-yaml"
+vscode "robbowen.synthwave-vscode"
+vscode "sashabusinaro.yaml-compose-sorter"
+vscode "vscjava.vscode-gradle"
+vscode "vscjava.vscode-java-debug"
+vscode "vscjava.vscode-java-dependency"
+vscode "vscjava.vscode-java-pack"
+vscode "vscjava.vscode-java-test"
+vscode "vscjava.vscode-maven"
+vscode "vue.volar"
+vscode "zainchen.json"
+go "cmd/go"
+go "cmd/gofmt"
+uv "trafilatura"
+npm "corepack"
+npm "pnpm"
