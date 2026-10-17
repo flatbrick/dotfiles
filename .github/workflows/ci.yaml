@@ -13,6 +13,8 @@ jobs:
         CODESPACES: true
     steps:
       - uses: actions/checkout@v2
+      - name: Check README tree alignment
+        run: ./scripts/readme-tree.sh --check
       - run: ./install.sh
       - name: chezmoi data
         run: '"$HOME/.local/bin/chezmoi" data'

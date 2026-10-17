@@ -6,26 +6,27 @@
 
 ```text
 .
-├── .chezmoi.yaml.tmpl      # chezmoi 初始化配置模板
-├── .chezmoidata.yaml       # Git 身份模板数据
-├── .chezmoiignore          # 不部署到主目录的文件
-├── .gitignore             # Git 忽略规则
+├── .chezmoi.yaml.tmpl # chezmoi 初始化配置模板
+├── .chezmoidata.yaml  # Git 身份模板数据
+├── .chezmoiignore     # 不部署到主目录的文件
+├── .gitignore         # Git 忽略规则
 ├── .github/workflows/
-│   └── ci.yaml            # CI 工作流
+│   └── ci.yaml        # CI 工作流
 ├── README.md
-├── install.sh             # 安装入口
-├── dot_gitconfig          # 仅含说明的 ~/.gitconfig
+├── install.sh         # 安装入口
+├── scripts/           # 仓库维护脚本，不部署
+├── dot_gitconfig      # 仅含说明的 ~/.gitconfig
 ├── private_dot_config/git/
-│   ├── config.tmpl        # Git 身份与设置 → ~/.config/git/config
-│   ├── ignore             # 全局忽略规则
-│   └── message            # 提交消息模板
+│   ├── config.tmpl    # Git 身份与设置 → ~/.config/git/config
+│   ├── ignore         # 全局忽略规则
+│   └── message        # 提交消息模板
 ├── private_dot_config/homebrew/
-│   └── Brewfile           # Homebrew 安装清单
-└── docs/                  # 仓库文档，不部署到主目录
-    ├── guides/            # 配置与维护指南
+│   └── Brewfile       # Homebrew 安装清单
+└── docs/              # 仓库文档，不部署到主目录
+    ├── guides/        # 配置与维护指南
     │   ├── git.md
     │   └── homebrew.md
-    └── references/        # 外部参考项目及分析
+    └── references/    # 外部参考项目及分析
         └── signalridge-dotfiles.md
 ```
 
@@ -37,6 +38,14 @@
 | [Homebrew 安装清单](docs/guides/homebrew.md) | 已纳管清单的部署、审阅与手动安装 |
 
 后续软件的配置说明按主题放在 `docs/guides/`，在此添加入口；外部参考项目及分析放在 `docs/references/`。
+
+上方结构树的注释列由脚本统一对齐，不要手工补空格；增删条目后执行：
+
+```sh
+./scripts/readme-tree.sh
+```
+
+CI 会以 `--check` 校验，未对齐时失败。
 
 ## 参考项目
 
