@@ -30,6 +30,15 @@
         └── signalridge-dotfiles.md
 ```
 
+结构树中的路径与注释由 `scripts/readme-tree.sh` 统一对齐，不要手工补空格。
+增删条目后执行：
+
+```sh
+./scripts/readme-tree.sh
+```
+
+CI 以 `--check` 校验，未对齐时失败。
+
 ## 使用与维护
 
 | 文档 | 内容 |
@@ -38,14 +47,6 @@
 | [Homebrew 安装清单](docs/guides/homebrew.md) | 已纳管清单的部署、审阅与手动安装 |
 
 后续软件的配置说明按主题放在 `docs/guides/`，在此添加入口；外部参考项目及分析放在 `docs/references/`。
-
-上方结构树的注释列由脚本统一对齐，不要手工补空格；增删条目后执行：
-
-```sh
-./scripts/readme-tree.sh
-```
-
-CI 会以 `--check` 校验，未对齐时失败。
 
 ## 参考项目
 
