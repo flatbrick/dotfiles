@@ -1,4 +1,5 @@
 .github/
 install.sh
-LICENSE
 README.md
+.gitignore
+docs/
