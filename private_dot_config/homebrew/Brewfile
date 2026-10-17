@@ -2,7 +2,6 @@ tap "am2rican5/sigye"
 tap "anomalyco/tap"
 tap "aquaproj/aqua"
 tap "can1357/tap"
-tap "manaflow-ai/cmux"
 tap "my-monkeys/tap"
 tap "netbirdio/tap"
 tap "nikitabobko/tap"
@@ -106,8 +105,6 @@ cask "aqua"
 cask "chatgpt"
 # Terminal-based AI coding assistant
 cask "claude-code"
-# Ghostty-based terminal with vertical tabs and notifications for AI coding agents
-cask "cmux"
 # Server and cloud storage browser
 cask "cyberduck"
 # Database management tool
