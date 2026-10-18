@@ -1,0 +1,23 @@
+#!/bin/sh
+# 首次 apply 时安装 Homebrew（仅 macOS，已安装则跳过）。
+{{ if eq .chezmoi.os "darwin" -}}
+set -u
+
+if command -v brew >/dev/null 2>&1; then
+	echo "Homebrew already installed: $(command -v brew)" >&2
+	exit 0
+fi
+
+if [ -x /opt/homebrew/bin/brew ] || [ -x /usr/local/bin/brew ]; then
+	echo "Homebrew present but not on PATH; skipping install" >&2
+	exit 0
+fi
+
+if ! command -v curl >/dev/null 2>&1; then
+	echo "curl is required to install Homebrew." >&2
+	exit 1
+fi
+
+echo "Installing Homebrew (non-interactive; run 'sudo -v' first if sudo needs a password)" >&2
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+{{- end }}

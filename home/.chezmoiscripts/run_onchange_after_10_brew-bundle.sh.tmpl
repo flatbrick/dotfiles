@@ -1,0 +1,40 @@
+#!/bin/sh
+# chezmoi 在 Brewfile 内容变化时执行一次。
+# Brewfile sha256: {{ include "private_dot_config/homebrew/Brewfile" | sha256sum }}
+{{ if eq .chezmoi.os "darwin" -}}
+{{- $installMasApps := get . "installMasApps" | default false -}}
+# Install Mac App Store apps: {{ $installMasApps }}
+set -u
+
+brewfile="${HOME}/.config/homebrew/Brewfile"
+
+if [ ! -s "$brewfile" ]; then
+	echo "Brewfile not found at ${brewfile}; skipping" >&2
+	exit 0
+fi
+
+# 同一次 apply 中刚装好的 Homebrew 可能还不在 PATH 上。
+brew_bin="${BREW_BIN:-}"
+if [ -z "$brew_bin" ]; then
+	if command -v brew >/dev/null 2>&1; then
+		brew_bin=brew
+	elif [ -x /opt/homebrew/bin/brew ]; then
+		brew_bin=/opt/homebrew/bin/brew
+	elif [ -x /usr/local/bin/brew ]; then
+		brew_bin=/usr/local/bin/brew
+	fi
+fi
+
+if [ -z "$brew_bin" ]; then
+	echo "Homebrew not installed; skipping brew bundle install" >&2
+	exit 0
+fi
+
+{{ if not $installMasApps -}}
+# 按导出清单中的 ID 排除 MAS 应用，保留 Brewfile 原始快照格式。
+export HOMEBREW_BUNDLE_MAS_SKIP="${HOMEBREW_BUNDLE_MAS_SKIP:-}{{ range regexFindAll "(?m)^mas .*id: [0-9]+" (include "private_dot_config/homebrew/Brewfile") -1 }} {{ regexFind "[0-9]+$" . }}{{ end }}"
+{{ end -}}
+echo "Installing Homebrew packages from ${brewfile}" >&2
+# 保留失败状态，避免 run_onchange 将未完成的安装记为成功。
+exec "$brew_bin" bundle install --file="$brewfile" --no-upgrade
+{{- end }}

@@ -50,7 +50,7 @@ chezmoi diff ~/.gitconfig ~/.config/git/config ~/.config/git/ignore ~/.config/gi
 | `lazygit` | `lazygit` | 可选的 `git ui` 别名 |
 
 当前工作机上的这些工具均由 Homebrew 安装，已纳管的 Brewfile 包含上述全部工具。
-本批只部署清单，不自动安装软件；`~/.config/delta/config` 已纳管。
+完整 apply 会通过 Homebrew 管线安装清单中的软件；`~/.config/delta/config` 已纳管。
 清单的维护见 [Homebrew](homebrew.md)。
 
 GitHub HTTPS 认证使用 `gh auth git-credential` helper，这是 `gh` 自带的子命令。
