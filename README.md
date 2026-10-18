@@ -15,10 +15,13 @@
 ├── README.md
 ├── docs/
 │   ├── guides/
+│   │   ├── aerospace.md
 │   │   ├── cli-tools.md
 │   │   ├── ghostty.md
 │   │   ├── git.md
+│   │   ├── herdr.md
 │   │   ├── homebrew.md
+│   │   ├── karabiner.md
 │   │   ├── lazygit.md
 │   │   └── yazi.md
 │   └── references/
@@ -26,6 +29,7 @@
 ├── home/
 │   ├── .chezmoi.toml.tmpl
 │   ├── .chezmoidata/
+│   │   ├── aerospace.yaml
 │   │   └── git.yaml
 │   ├── .chezmoiignore
 │   ├── .chezmoiremove
@@ -37,6 +41,8 @@
 │   │   └── bin/
 │   │       └── executable_git-identity
 │   └── private_dot_config/
+│       ├── aerospace/
+│       │   └── aerospace.toml.tmpl
 │       ├── bat/
 │       │   └── config
 │       ├── btop/
@@ -51,10 +57,14 @@
 │       │   ├── config.tmpl
 │       │   ├── ignore
 │       │   └── message
+│       ├── herdr/
+│       │   └── config.toml
 │       ├── homebrew/
 │       │   └── Brewfile
 │       ├── lazygit/
 │       │   └── config.yml
+│       ├── private_karabiner/
+│       │   └── private_karabiner.json
 │       └── yazi/
 │           ├── keymap.toml
 │           ├── theme.toml
@@ -102,6 +112,9 @@ Git 提交编辑器仍为 `nvim`，不受此设置影响。
 | [Homebrew 安装清单](docs/guides/homebrew.md) | 已纳管清单的部署、审阅与手动安装 |
 | [Lazygit 配置](docs/guides/lazygit.md) | 差异工具、界面与命令安全边界 |
 | [Yazi 配置](docs/guides/yazi.md) | 文件浏览、打开方式与快捷键 |
+| [Herdr 配置](docs/guides/herdr.md) | 参考版界面、按键和配置所有权 |
+| [AeroSpace 配置](docs/guides/aerospace.md) | 本机浮动应用、工作区与显示器布局 |
+| [Karabiner 配置](docs/guides/karabiner.md) | 用户 SpaceFN 与键位映射 |
 
 后续软件的配置说明按主题放在 `docs/guides/`，在此添加入口；外部参考项目及分析放在 `docs/references/`。
 

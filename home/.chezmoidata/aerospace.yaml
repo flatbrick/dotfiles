@@ -1,0 +1,18 @@
+aerospace:
+  floatingApps:
+    - id: com.apple.systempreferences
+      comment: System Settings
+    - id: com.apple.Preview
+      comment: Preview
+    - id: com.apple.calculator
+      comment: Calculator
+    - id: org.pqrs.Karabiner-Elements.Settings
+      comment: Karabiner Elements
+    - id: org.pqrs.Karabiner-EventViewer
+      comment: Karabiner EventViewer
+    - id: com.carriez.rustdesk
+      comment: RustDesk
+    - id: com.raycast.macos
+      comment: Raycast
+    - id: com.mitchellh.ghostty
+      comment: Ghostty
