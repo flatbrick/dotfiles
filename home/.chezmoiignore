@@ -1,0 +1,17 @@
+# 杂项：.gitignore 只影响 Git，不阻止 chezmoi 部署这些文件
+*.tmp
+*.log
+.DS_Store
+**/.DS_Store
+result
+result-*
+
+{{- if ne .chezmoi.os "darwin" }}
+# Homebrew 与当前桌面配置仅适用于 macOS
+.chezmoiscripts/00_homebrew.sh
+.chezmoiscripts/10_brew-bundle.sh
+.config/homebrew/
+.config/ghostty/
+.config/aerospace/
+.config/karabiner/
+{{- end }}

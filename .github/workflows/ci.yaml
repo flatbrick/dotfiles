@@ -16,5 +16,7 @@ jobs:
       - name: Check README tree alignment
         run: ./scripts/readme-tree.sh --check
       - run: ./install.sh
+      - name: Verify home source root
+        run: test "$("$HOME/.local/bin/chezmoi" source-path)" = "$(pwd -P)/home"
       - name: chezmoi data
         run: '"$HOME/.local/bin/chezmoi" data'

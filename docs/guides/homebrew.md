@@ -5,7 +5,7 @@
 ## 当前状态
 
 已通过 `brew bundle dump` 按本机当前安装状态重新导出
-`~/.config/homebrew/Brewfile`，并纳管到 `private_dot_config/homebrew/Brewfile`。
+`~/.config/homebrew/Brewfile`，并纳管到 `home/private_dot_config/homebrew/Brewfile`。
 清单包含 tap、命令行软件、GUI 应用、Mac App Store 应用、VS Code 扩展，
 以及 Homebrew Bundle 检测到的 Go、uv 和 npm 工具。
 
@@ -21,7 +21,7 @@ Brewfile 声明需要安装的软件，不是精确版本锁文件；恢复时�
 
 ## 修改与部署
 
-直接编辑仓库中的 `private_dot_config/homebrew/Brewfile`，然后部署：
+直接编辑仓库中的 `home/private_dot_config/homebrew/Brewfile`，然后部署：
 
 ```sh
 chezmoi apply ~/.config/homebrew/Brewfile

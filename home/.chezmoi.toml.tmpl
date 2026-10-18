@@ -1,0 +1,27 @@
+{{/* 已有本机值优先；无终端时主机名使用系统值，MAS 安装默认关闭。 */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if hasKey . "hostname" -}}
+{{-   $hostname = .hostname -}}
+{{- else if stdinIsATTY -}}
+{{-   $hostname = promptStringOnce . "hostname" "Hostname" -}}
+{{- end -}}
+
+{{- $installMasApps := false -}}
+{{- if hasKey . "installMasApps" -}}
+{{-   $installMasApps = .installMasApps -}}
+{{- else if and (eq .chezmoi.os "darwin") stdinIsATTY -}}
+{{-   $installMasApps = promptBoolOnce . "installMasApps" "Install Mac App Store apps (requires Apple ID login)" -}}
+{{- end -}}
+
+sourceDir = {{ .chezmoi.workingTree | quote }}
+
+[data]
+  hostname = {{ $hostname | quote }}
+  installMasApps = {{ $installMasApps }}
+
+[edit]
+  command = "code"
+  args = ["--wait"]
+
+[diff]
+  pager = "sh -c 'delta --config ~/.config/delta/config --paging=never || less -FRX'"

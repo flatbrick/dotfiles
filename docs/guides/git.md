@@ -8,14 +8,14 @@
 
 | 仓库文件 | 部署目标 | 用途 |
 |---|---|---|
-| `dot_gitconfig` | `~/.gitconfig` | 配置位置说明 |
-| `private_dot_config/git/config.tmpl` | `~/.config/git/config` | 身份、别名、工具与 Git 行为 |
-| `private_dot_config/git/ignore` | `~/.config/git/ignore` | 全局忽略规则 |
-| `private_dot_config/git/message` | `~/.config/git/message` | 提交消息模板 |
+| `home/dot_gitconfig` | `~/.gitconfig` | 配置位置说明 |
+| `home/private_dot_config/git/config.tmpl` | `~/.config/git/config` | 身份、别名、工具与 Git 行为 |
+| `home/private_dot_config/git/ignore` | `~/.config/git/ignore` | 全局忽略规则 |
+| `home/private_dot_config/git/message` | `~/.config/git/message` | 提交消息模板 |
 
 ## 身份数据
 
-身份由 `.chezmoidata.yaml` 中的 `gitUsername`、`gitEmail` 提供。
+身份由 `home/.chezmoidata/git.yaml` 中的 `gitUsername`、`gitEmail` 提供。
 修改身份应编辑该数据文件，不使用初始化模板中的 `name`、`email`。
 本机 chezmoi 配置中的同名数据优先级更高，应避免重复定义。
 仓库级 Git 身份设置仍可覆盖全局身份；修改身份不会自动改变已有提交。
@@ -36,7 +36,7 @@ chezmoi diff ~/.gitconfig ~/.config/git/config ~/.config/git/ignore ~/.config/gi
 ```
 
 不要通过 `git config --global` 持久维护身份：它可能向 `~/.gitconfig` 写入覆盖值，
-且后续 apply 会恢复仓库版本。其他设置直接修改 `private_dot_config/git/config.tmpl`。
+且后续 apply 会恢复仓库版本。其他设置直接修改 `home/private_dot_config/git/config.tmpl`。
 
 ## 工具依赖与认证
 
@@ -50,7 +50,7 @@ chezmoi diff ~/.gitconfig ~/.config/git/config ~/.config/git/ignore ~/.config/gi
 | `lazygit` | `lazygit` | 可选的 `git ui` 别名 |
 
 当前工作机上的这些工具均由 Homebrew 安装，已纳管的 Brewfile 包含上述全部工具。
-仓库不自动安装软件，也未纳管 `~/.config/delta/config`。
+本批只部署清单，不自动安装软件；`~/.config/delta/config` 已纳管。
 清单的维护见 [Homebrew](homebrew.md)。
 
 GitHub HTTPS 认证使用 `gh auth git-credential` helper，这是 `gh` 自带的子命令。

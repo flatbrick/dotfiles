@@ -6,29 +6,43 @@
 
 ```text
 .
-├── .chezmoi.yaml.tmpl # chezmoi 初始化配置模板
-├── .chezmoidata.yaml  # Git 身份模板数据
-├── .chezmoiignore     # 不部署到主目录的文件
-├── .gitignore         # Git 忽略规则
-├── .github/workflows/
-│   └── ci.yaml        # CI 工作流
+├── .chezmoiroot
+├── .chezmoiversion
+├── .github/
+│   └── workflows/
+│       └── ci.yaml
+├── .gitignore
 ├── README.md
-├── install.sh         # 安装入口
-├── scripts/           # 仓库维护脚本，不部署
-├── dot_gitconfig      # 仅含说明的 ~/.gitconfig
-├── private_dot_config/git/
-│   ├── config.tmpl    # Git 身份与设置 → ~/.config/git/config
-│   ├── ignore         # 全局忽略规则
-│   └── message        # 提交消息模板
-├── private_dot_config/homebrew/
-│   └── Brewfile       # Homebrew 安装清单
-└── docs/              # 仓库文档，不部署到主目录
-    ├── guides/        # 配置与维护指南
-    │   ├── git.md
-    │   └── homebrew.md
-    └── references/    # 外部参考项目及分析
-        └── signalridge-dotfiles.md
+├── docs/
+│   ├── guides/
+│   │   ├── git.md
+│   │   └── homebrew.md
+│   └── references/
+│       └── signalridge-dotfiles.md
+├── home/
+│   ├── .chezmoi.toml.tmpl
+│   ├── .chezmoidata/
+│   │   └── git.yaml
+│   ├── .chezmoiignore
+│   ├── dot_gitconfig
+│   └── private_dot_config/
+│       ├── delta/
+│       │   └── config
+│       ├── git/
+│       │   ├── config.tmpl
+│       │   ├── ignore
+│       │   └── message
+│       └── homebrew/
+│           └── Brewfile
+├── install.sh
+└── scripts/
+    └── readme-tree.sh
 ```
+
+仓库根目录放安装入口、文档、CI 和维护工具；`home/` 只放部署源。
+`.chezmoiroot` 的内容为 `home`，外层文件不会因新增而自动部署到主目录。
+源文件移入 `home/` 不改变部署目标，例如 `home/private_dot_config/git/config.tmpl`
+仍部署到 `~/.config/git/config`。
 
 结构树中的路径与注释由 `scripts/readme-tree.sh` 统一对齐，不要手工补空格。
 增删条目后执行：
@@ -41,6 +55,20 @@ CI 以 `--check` 校验，未对齐时失败。
 
 ## 使用与维护
 
+从仓库根目录初始化本机 chezmoi 配置（不部署文件、不安装软件）：
+
+```sh
+chezmoi init --source="$(pwd)" --apply=false
+```
+
+首次在终端中询问 hostname；macOS 还询问是否安装 Mac App Store 应用。
+已有答案会保留，无终端时使用系统主机名、默认不安装商店应用。
+hostname 仅作为模板数据保存，不修改系统主机名。
+chezmoi 使用 `code --wait` 编辑配置，差异展示与 Git 共用 `~/.config/delta/config`。
+Git 提交编辑器仍为 `nvim`，不受此设置影响。
+初始化模板将仓库根路径保存为 `sourceDir`；后续普通 `chezmoi` 命令会通过
+`.chezmoiroot` 自动定位 `home/`，无需重复指定 `--source`。
+
 | 文档 | 内容 |
 |---|---|
 | [Git 配置](docs/guides/git.md) | 身份数据、配置部署、工具依赖与认证 |
@@ -50,17 +78,6 @@ CI 以 `--check` 校验，未对齐时失败。
 
 ## 参考项目
 
-本仓库参考 [signalridge/dotfiles](https://github.com/signalridge/dotfiles) 的
-chezmoi 配置组织方式，按需引入配置并逐步调整为个人使用，不整体部署参考项目。
-
-当前引入范围为 Git 配置，以参考项目的 `b1c0ea4` 版本为基线：
-
-- `dot_gitconfig`
-- `private_dot_config/git/config.tmpl`
-- `private_dot_config/git/ignore`
-- `private_dot_config/git/message`
-
-上述文件引入时保持原样；身份数据由本仓库的 `.chezmoidata.yaml` 单独提供。
-参考项目的安装脚本、包管理配置和其他工具配置未随之引入，也不自动同步上游更新。
-
-架构分析、使用风险与采用建议见 [调研报告](docs/references/signalridge-dotfiles.md)。
+目录组织参考 [twpayne/dotfiles](https://github.com/twpayne/dotfiles)，
+配置按需参考 [signalridge/dotfiles](https://github.com/signalridge/dotfiles) 的 `a978087` 版本；
+采用范围以已纳管文件及对应指南为准，不整体部署参考仓库。
