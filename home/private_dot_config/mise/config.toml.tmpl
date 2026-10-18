@@ -1,0 +1,150 @@
+# mise global configuration
+# https://mise.jdx.dev/configuration.html
+
+[tools]
+# Node.js — still REQUIRED at runtime even after the bun migration: globally
+# installed JS CLIs keep their `#!/usr/bin/env node` shebangs, so `node` must
+# stay on PATH. bun replaces npx (MCP wrappers) and the npm install backend,
+# not the Node runtime itself.
+#
+# `lts`, NOT `latest`, and that is not a stale pin: `lts` already tracks the
+# newest LTS release and moves on its own (24.20.0 today), so "keep node at the
+# latest version" and "stay on LTS" are the same instruction. `latest` would
+# mean something different — Node Current, 26.x, which gets no long-term
+# support. Briefly set to `latest` on 2026-09-06 and reverted the same day.
+# The version floor was never the question (pi needs >= 22.19 and every major
+# here clears it); the exposure on a brand-new major is a native module with no
+# prebuild, which bun will not rebuild because it skips postinstall by default.
+node = "lts"
+
+# Bun — runs MCP servers via `bunx` (see ~/.local/bin/mcp-*) and, via
+# settings.npm.package_manager below, becomes the installer for all `npm:` CLIs.
+bun = "latest"
+
+# Terraform (replaces tenv)
+terraform = "latest"
+
+# Python (for tools that need it). 3.12 -> 3.14 on 2026-09-06. The major.minor
+# pin is deliberate — a Python major moves faster than the pipx tools below —
+# and 3.14 is the newest release line, so this IS latest. Bumping the line
+# rebuilds the other `pipx:` entry venvs (poetry, pre-commit, posting,
+# ai-research-skills); mac-cleanup uses its own supported Python below.
+# Re-run `mise install` and check those binaries after any change here.
+python = "3.14"
+
+# uv (Python package manager)
+uv = "latest"
+
+# AI research toolbox (installed through mise's pipx backend using uvx).
+"pipx:git+https://github.com/signalridge/ai-research-skills.git" = { version = "latest", uvx = "true" }
+
+# Poetry (Python dependency manager, via pipx/uvx)
+"pipx:poetry" = "latest"
+
+# pre-commit (Git hook framework, moved from nix to avoid dotnet-sdk compilation)
+"pipx:pre-commit" = "latest"
+
+# Posting terminal API client
+"pipx:posting" = "latest"
+
+# Go
+go = "latest"
+
+# Official X API CLI. Use the Go backend because the npm package can lag
+# GitHub releases, and xurl is not in the aqua standard registry yet.
+# Kept for X *reads* (search/whoami/timeline); publishing goes through the
+# gated `social-post` wrapper, never `xurl post`.
+"go:github.com/xdevplatform/xurl" = "1.3.1"
+
+# Multi-platform publish engine (X / Bluesky / Mastodon / LinkedIn / dev.to).
+# Driven only by the `social-post` wrapper, which adds the dry-run/confirm gate
+# that crosspost itself lacks. Replaces the raw toot/goat CLIs.
+"npm:@humanwhocodes/crosspost" = "1.0.4"
+
+# Rust
+rust = "latest"
+
+# Lua 5.4 runtime (replaces nix lua5_4)
+lua = "5.4"
+
+{{ if eq .chezmoi.os "darwin" -}}
+# mac-cleanup 3.3.0 requires Python <3.14; keep its venv on a supported line.
+"pipx:mac-cleanup" = { version = "latest", uvx_args = "--python 3.13" }
+{{ end -}}
+
+# Pi coding agent (earendil-works). Binary is `pi`. Requires node >=22.19,
+# satisfied by `node = "lts"` above. Auth/config under ~/.pi/agent (chezmoi-managed).
+"npm:@earendil-works/pi-coding-agent" = "latest"
+
+# DeepSeek Harness (developer preview). Pin the tested release: upstream warns
+# of breaking changes, so upgrade explicitly rather than through `mise up`.
+# `dsh-with web` reuses OpenAI OAuth via the existing local CLIProxyAPI.
+"npm:@deepseek-ai/dsh" = "0.2.0-rc.2"
+
+# AI coding usage analyzers
+"npm:ccusage" = "latest"
+"npm:@ccusage/codex" = "latest"
+
+# agent-browser: fast native Rust browser-automation CLI for AI agents.
+# The npm package ships the prebuilt binary; run `agent-browser install` once
+# to fetch Chrome for Testing (or it auto-detects an existing Chrome/Brave).
+"npm:agent-browser" = "latest"
+
+# hyperframes (HeyGen): render HTML/CSS/animations to deterministic MP4. Bin is
+# `hyperframes`. Needs node>=22 (satisfied above) + ffmpeg (nix profile);
+# puppeteer-core fetches Chrome for Testing on first render. AI-agent skills are
+# NOT managed as chezmoi externals — the CLI self-installs them globally into
+# ~/.claude/skills + ~/.agents/skills (fanned out to every agent) via a one-off
+# `hyperframes skills`; run `hyperframes skills update` to refresh.
+# NOTE: bun skips postinstall, so onnxruntime-node's native lib is not fetched.
+# Core render works without it; voiceover/transcription/background-removal (the
+# media skills) do not. If those error on a missing binary, switch this entry to
+#   "npm:hyperframes" = { version = "latest", bun_args = "--trust" }
+"npm:hyperframes" = "latest"
+
+# impeccable (pbakaus): frontend-design skill (`/impeccable` + 23 subcommands), a
+# deterministic UI anti-pattern detector (`impeccable detect <path>`), and Live Mode
+# (browser-based UI iteration). Bin is `impeccable`; pure-JS deps + NO postinstall,
+# so bun needs no `--trust` here. This entry installs ONLY the CLI. The `/impeccable`
+# skill is NOT deployed globally: `impeccable install --global` was intentionally removed
+# (2026-07-13) — pi double-reads ~/.pi/agent/skills + ~/.agents/skills so the global
+# fan-out collides, and a machine-wide skill in every harness is unwanted. Install per-repo
+# on demand instead: `impeccable install --project --no-hooks` in the target UI project
+# (`impeccable update`/`check` to refresh it there). Deliberately NOT a chezmoi external/
+# `~/.harnesses` entry either — installing two ways would double-write the skill dir.
+"npm:impeccable" = "latest"
+
+[settings]
+# Keep auto_install enabled for normal mise workflow.
+# Process storms were caused by shell PATH/init ordering, not this flag.
+auto_install = true
+
+# Use idiomatic version files (.node-version, .python-version, etc.)
+idiomatic_version_file = true
+
+# Experimental features
+experimental = true
+
+# Trust specific project paths (more secure than trusting ~)
+# Add your trusted project directories here
+trusted_config_paths = [
+    "~/Projects",
+    "~/Work",
+]
+
+# Always keep latest versions
+always_keep_download = false
+always_keep_install = false
+
+[settings.npm]
+# Use bun as the installer/runner for every `npm:` backend tool above.
+# Unified toolchain + much faster installs. Node still provides the runtime.
+# CAVEAT: this switch is global (no per-package opt-out). bun also skips
+# package lifecycle scripts by default — if a tool that downloads a binary in
+# postinstall goes missing after `mise install`, add `bun_args = "--trust"` to
+# that specific tool entry.
+package_manager = "bun"
+
+[env]
+# Add local bin to PATH
+_.path = ["./node_modules/.bin", "./bin"]
