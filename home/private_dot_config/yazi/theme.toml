@@ -1,0 +1,102 @@
+# Dracula 配色来自 signalridge/dotfiles a978087。
+# 字段布局适配 Yazi 26.8.15；不依赖外部 flavor 或 tmTheme 文件。
+# https://yazi-rs.github.io/docs/configuration/theme
+
+[mgr]
+cwd = { fg = "#8be9fd" }
+find_keyword = { fg = "#f1fa8c", bold = true, italic = true }
+find_position = { fg = "#ff79c6", bg = "#282a36", bold = true }
+marker_copied = { fg = "#50fa7b", bg = "#50fa7b" }
+marker_cut = { fg = "#ff5555", bg = "#ff5555" }
+marker_marked = { fg = "#bd93f9", bg = "#bd93f9" }
+marker_selected = { fg = "#f1fa8c", bg = "#f1fa8c" }
+count_copied = { fg = "#282a36", bg = "#50fa7b" }
+count_cut = { fg = "#282a36", bg = "#ff5555" }
+count_selected = { fg = "#282a36", bg = "#f1fa8c" }
+border_symbol = "│"
+border_style = { fg = "#6272a4" }
+syntect_theme = ""
+
+[indicator]
+current = { bg = "#44475a", bold = true }
+preview = { bg = "#44475a" }
+
+[tabs]
+active = { fg = "#282a36", bg = "#bd93f9", bold = true }
+inactive = { fg = "#f8f8f2", bg = "#44475a" }
+
+[mode]
+normal_main = { fg = "#282a36", bg = "#bd93f9", bold = true }
+normal_alt = { fg = "#bd93f9", bg = "#44475a" }
+select_main = { fg = "#282a36", bg = "#50fa7b", bold = true }
+select_alt = { fg = "#50fa7b", bg = "#44475a" }
+unset_main = { fg = "#282a36", bg = "#ff5555", bold = true }
+unset_alt = { fg = "#ff5555", bg = "#44475a" }
+
+[status]
+sep_left = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+progress_label = { fg = "#f8f8f2", bold = true }
+progress_normal = { fg = "#bd93f9", bg = "#44475a" }
+progress_error = { fg = "#ff5555", bg = "#44475a" }
+perm_type = { fg = "#8be9fd" }
+perm_read = { fg = "#50fa7b" }
+perm_write = { fg = "#ff5555" }
+perm_exec = { fg = "#f1fa8c" }
+perm_sep = { fg = "#6272a4" }
+
+[input]
+border = { fg = "#bd93f9" }
+title = { fg = "#bd93f9" }
+value = { fg = "#f8f8f2" }
+selected = { bg = "#44475a" }
+
+[pick]
+border = { fg = "#8be9fd" }
+active = { fg = "#ff79c6", bold = true }
+inactive = { fg = "#f8f8f2" }
+
+[tasks]
+border = { fg = "#bd93f9" }
+title = { fg = "#bd93f9" }
+hovered = { fg = "#ff79c6", underline = true }
+
+[which]
+cols = 3
+mask = { bg = "#282a36" }
+cand = { fg = "#8be9fd" }
+rest = { fg = "#6272a4" }
+desc = { fg = "#ff79c6" }
+separator = "  "
+separator_style = { fg = "#6272a4" }
+
+[help]
+chord = { fg = "#8be9fd" }
+action = { fg = "#ff79c6" }
+hovered = { bg = "#44475a", bold = true }
+
+[notify]
+title_info = { fg = "#50fa7b" }
+title_warn = { fg = "#f1fa8c" }
+title_error = { fg = "#ff5555" }
+
+[filetype]
+rules = [
+  { url = "*/", fg = "#8be9fd", bold = true },
+  { url = ".*", fg = "#6272a4" },
+  { url = "*.rs", fg = "#ffb86c" },
+  { url = "*.go", fg = "#8be9fd" },
+  { url = "*.py", fg = "#f1fa8c" },
+  { url = "*.js", fg = "#f1fa8c" },
+  { url = "*.ts", fg = "#8be9fd" },
+  { url = "*.tsx", fg = "#8be9fd" },
+  { url = "*.jsx", fg = "#f1fa8c" },
+  { url = "*.nix", fg = "#bd93f9" },
+  { url = "*.sh", fg = "#50fa7b" },
+  { url = "*.{json,yaml,yml,toml}", fg = "#ff79c6" },
+  { url = "*.{md,txt,pdf}", fg = "#f8f8f2" },
+  { url = "*.{jpg,jpeg,png,gif,webp,svg}", fg = "#ffb86c" },
+  { url = "*.{mp3,flac,wav,m4a}", fg = "#50fa7b" },
+  { url = "*.{mp4,mkv,avi,mov}", fg = "#ff79c6" },
+  { url = "*.{zip,tar,gz,7z,rar}", fg = "#ff5555" },
+]

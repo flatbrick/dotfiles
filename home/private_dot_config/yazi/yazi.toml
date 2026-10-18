@@ -1,0 +1,44 @@
+# 基于 signalridge/dotfiles a978087，适配 Yazi 26.8.15。
+# https://yazi-rs.github.io/docs/configuration/yazi
+
+[mgr]
+show_hidden = true
+sort_dir_first = true
+sort_by = "natural"
+sort_reverse = false
+linemode = "size"
+show_symlink = true
+
+[preview]
+# 图片预览尺寸上限，单位为像素（不是文件字节数）。
+max_width = 1000
+max_height = 1000
+image_filter = "lanczos3"
+image_quality = 90
+
+[opener]
+# %s 由 Yazi 逐个进行 shell 转义，不要再用引号包住整个占位符。
+edit = [
+  { run = 'nvim -- %s', block = true, desc = "Neovim", for = "unix" },
+]
+open = [
+  { run = 'open %s', desc = "默认应用", for = "macos" },
+]
+reveal = [
+  { run = 'open -R %s', desc = "在访达中显示", for = "macos" },
+]
+
+[open]
+rules = [
+  { url = "*/", use = ["open", "reveal"] },
+  { mime = "text/*", use = ["edit", "reveal"] },
+  { mime = "inode/empty", use = ["edit", "reveal"] },
+  { url = "*.{txt,md,json,yaml,yml,toml,ini,conf,sh,zsh,bash,fish}", use = ["edit", "reveal"] },
+  { url = "*.{rs,go,py,js,ts,tsx,jsx,c,cpp,h,hpp,java,kt,swift}", use = ["edit", "reveal"] },
+  { url = "*.nix", use = ["edit", "reveal"] },
+  { url = "*", use = ["open", "reveal"] },
+]
+
+[tasks]
+# 工作线程采用当前版本默认值；旧版 micro_workers/macro_workers 已移除。
+bizarre_retry = 5

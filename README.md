@@ -18,7 +18,9 @@
 │   │   ├── cli-tools.md
 │   │   ├── ghostty.md
 │   │   ├── git.md
-│   │   └── homebrew.md
+│   │   ├── homebrew.md
+│   │   ├── lazygit.md
+│   │   └── yazi.md
 │   └── references/
 │       └── signalridge-dotfiles.md
 ├── home/
@@ -49,8 +51,14 @@
 │       │   ├── config.tmpl
 │       │   ├── ignore
 │       │   └── message
-│       └── homebrew/
-│           └── Brewfile
+│       ├── homebrew/
+│       │   └── Brewfile
+│       ├── lazygit/
+│       │   └── config.yml
+│       └── yazi/
+│           ├── keymap.toml
+│           ├── theme.toml
+│           └── yazi.toml
 ├── install.sh
 └── scripts/
     └── readme-tree.sh
@@ -92,6 +100,8 @@ Git 提交编辑器仍为 `nvim`，不受此设置影响。
 | [Ghostty 配置](docs/guides/ghostty.md) | 配置部署、字体主题与重载 |
 | [Git 配置](docs/guides/git.md) | 身份数据、配置部署、工具依赖与认证 |
 | [Homebrew 安装清单](docs/guides/homebrew.md) | 已纳管清单的部署、审阅与手动安装 |
+| [Lazygit 配置](docs/guides/lazygit.md) | 差异工具、界面与命令安全边界 |
+| [Yazi 配置](docs/guides/yazi.md) | 文件浏览、打开方式与快捷键 |
 
 后续软件的配置说明按主题放在 `docs/guides/`，在此添加入口；外部参考项目及分析放在 `docs/references/`。
 

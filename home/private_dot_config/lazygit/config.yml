@@ -1,0 +1,50 @@
+# 来源：signalridge/dotfiles a978087；兼容性与安全调整见 docs/guides/lazygit.md。
+gui:
+  showFileTree: true
+  wrapLinesInStagingView: true
+  skipAmendWarning: false
+  skipDiscardChangeWarning: false
+  skipStashWarning: false
+  skipNoStagedFilesWarning: false
+  skipRewordInEditorWarning: false
+  skipSwitchWorktreeOnCheckoutWarning: false
+  theme:
+    activeBorderColor: ["#FF79C6", bold]
+    inactiveBorderColor: ["#BD93F9"]
+    searchingActiveBorderColor: ["#8BE9FD", bold]
+    optionsTextColor: ["#6272A4"]
+    selectedLineBgColor: ["#6272A4"]
+    inactiveViewSelectedLineBgColor: [bold]
+    cherryPickedCommitFgColor: ["#6272A4"]
+    cherryPickedCommitBgColor: ["#8BE9FD"]
+    markedBaseCommitFgColor: ["#8BE9FD"]
+    markedBaseCommitBgColor: ["#F1FA8C"]
+    unstagedChangesColor: ["#FF5555"]
+    defaultFgColor: ["#F8F8F2"]
+git:
+  autoFetch: false
+  autoStageResolvedConflicts: false
+  skipHookPrefix: ""
+  # 按 | 轮换，不会在工具缺失或失败时自动回退。
+  diffRenderers:
+    - type: extDiff
+      command: difft --color=always
+    - type: stdinFilter
+      command: delta --config ~/.config/delta/config --paging=never
+      colorArg: always
+    - type: stdinFilter
+      command: less -FRX
+      colorArg: always
+customCommands:
+  - key: O
+    context: files
+    command: 'code -- {{.SelectedFile.Name | quote}}'
+    description: 在 VS Code 中打开文件
+  - key: <ctrl+o>
+    context: localBranches
+    command: gh pr view --web
+    description: 在浏览器查看当前分支的 PR
+  - key: O
+    context: status
+    command: gh repo view --web
+    description: 在浏览器打开仓库

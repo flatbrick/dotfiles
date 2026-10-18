@@ -1,0 +1,30 @@
+# 基于 signalridge/dotfiles a978087，适配 Yazi 26.8.15。
+# https://yazi-rs.github.io/docs/configuration/keymap
+
+[mgr]
+prepend_keymap = [
+  { on = ["g", "h"], run = "cd ~", desc = "前往主目录" },
+  { on = ["g", "c"], run = "cd ~/.config", desc = "前往配置目录" },
+  { on = ["g", "d"], run = "cd ~/Downloads", desc = "前往下载目录" },
+  # chezmoi 默认 source 目录；自定义位置时按 chezmoi source-path 的结果修改。
+  { on = ["g", "."], run = "cd ~/.local/share/chezmoi", desc = "前往 dotfiles 源目录（默认位置）" },
+  { on = "<C-h>", run = "hidden toggle", desc = "切换隐藏文件显示" },
+  { on = "a", run = "create", desc = "新建文件或目录" },
+  { on = "e", run = "open --interactive", desc = "选择打开方式" },
+  { on = "!", run = "shell --block --interactive", desc = "交互输入 shell 命令并等待结束" },
+  # fzf 是 Yazi 内置插件，但仍需要 PATH 中已有 fzf 可执行文件。
+  { on = "<C-f>", run = "plugin fzf", desc = "使用 fzf 模糊查找" },
+  { on = "r", run = "rename --cursor=before_ext", desc = "重命名（多选时为批量重命名）" },
+  # y 成为前缀后，用 yy 保留普通复制文件操作；p 仍为粘贴。
+  { on = ["y", "y"], run = "yank", desc = "复制所选文件" },
+  { on = ["y", "p"], run = "copy path", desc = "复制文件路径" },
+  { on = ["y", "d"], run = "copy dirpath", desc = "复制所在目录路径" },
+  { on = ["y", "n"], run = "copy filename", desc = "复制文件名" },
+]
+
+[input]
+prepend_keymap = [
+  { on = "<C-a>", run = "move bol", desc = "移至行首" },
+  { on = "<C-e>", run = "move eol", desc = "移至行尾" },
+  { on = "<C-k>", run = "kill eol", desc = "删除至行尾" },
+]
