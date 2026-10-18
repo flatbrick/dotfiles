@@ -1,0 +1,6 @@
+# 已从仓库删除的来源，apply 时同步删除本机对应目标。
+# 预览：chezmoi apply --dry-run --verbose
+# 若目标在本机被改过，apply 会询问确认；非交互场景可用 --force。
+
+# 2026-10-17: 工作身份改由 git-identity 管理，旧目标不再生成。
+.config/git/work.config

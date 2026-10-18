@@ -8,6 +8,10 @@
 	name = {{ .gitUsername }}
 	email = {{ .gitEmail }}
 
+# 按目录切换身份：本机 ~/.config/git/identities.config 由 git-identity 生成。
+[include]
+	path = ~/.config/git/identities.config
+
 [init]
     defaultBranch = main
 

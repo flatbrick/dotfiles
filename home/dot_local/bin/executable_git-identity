@@ -1,0 +1,107 @@
+#!/bin/sh
+
+# 管理本机 Git 多身份：按目录自动切换 user.name/user.email。
+# 所有数据只存在于 ~/.config/git，不进入仓库。
+#
+#   git-identity add <目录> <用户名> <邮箱>
+#   git-identity list
+#   git-identity remove <目录>
+#   git-identity refresh
+set -eu
+
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/git"
+identity_dir="${config_dir}/identities"
+map_file="${config_dir}/identities.map"
+include_file="${config_dir}/identities.config"
+
+usage() {
+	echo "usage: $0 add <dir> <name> <email> | list | remove <dir> | refresh" >&2
+	exit 2
+}
+
+slug_for() {
+	printf '%s' "$1" | sed 's|^~/*||; s|[^A-Za-z0-9._-]|-|g; s|^-*||' | tr 'A-Z' 'a-z'
+}
+
+normalize_dir() {
+	case "$1" in
+	"~") printf '~' ;;
+	"~/"*) printf '%s' "$1" ;;
+	/*) printf '%s' "$1" ;;
+	*) printf '%s/%s' "$PWD" "$1" ;;
+	esac
+}
+
+refresh() {
+	mkdir -p "$config_dir" "$identity_dir"
+	tmp="$(mktemp)"
+	if [ -f "$map_file" ]; then
+		while IFS='	' read -r i_dir i_slug; do
+			[ -n "$i_dir" ] || continue
+			[ -f "${identity_dir}/${i_slug}.config" ] || continue
+			printf '[includeIf "gitdir:%s/"]\n\tpath = %s\n' "$i_dir" "${identity_dir}/${i_slug}.config" >>"$tmp"
+		done <"$map_file"
+	fi
+	mv "$tmp" "$include_file"
+	chmod 600 "$include_file"
+}
+
+case "${1:-}" in
+add)
+	[ $# -eq 4 ] || usage
+	dir="$(normalize_dir "$2")"
+	name="$3"
+	email="$4"
+	slug="$(slug_for "$dir")"
+	[ -n "$slug" ] || {
+		echo "无法从目录推导标识: $dir" >&2
+		exit 1
+	}
+	mkdir -p "$identity_dir"
+	tmp="$(mktemp)"
+	if [ -f "$map_file" ]; then
+		awk -F '\t' -v d="$dir" '$1 != d' "$map_file" >"$tmp"
+	fi
+	printf '%s\t%s\n' "$dir" "$slug" >>"$tmp"
+	mv "$tmp" "$map_file"
+	chmod 600 "$map_file"
+
+	cfg="$(mktemp)"
+	printf '[user]\n\tname = %s\n\temail = %s\n' "$name" "$email" >"$cfg"
+	chmod 600 "$cfg"
+	mv "$cfg" "${identity_dir}/${slug}.config"
+
+	refresh
+	echo "已配置 ${dir} → ${name} <${email}>" >&2
+	;;
+list)
+	if [ -f "$map_file" ]; then
+		while IFS='	' read -r l_dir l_slug; do
+			[ -n "$l_dir" ] || continue
+			email="$(git config --file "${identity_dir}/${l_slug}.config" user.email 2>/dev/null || true)"
+			name="$(git config --file "${identity_dir}/${l_slug}.config" user.name 2>/dev/null || true)"
+			printf '%-20s %s <%s>\n' "$l_dir" "$name" "$email"
+		done <"$map_file"
+	fi
+	;;
+remove)
+	[ $# -eq 2 ] || usage
+	dir="$(normalize_dir "$2")"
+	slug="$(slug_for "$dir")"
+	if [ -f "$map_file" ]; then
+		tmp="$(mktemp)"
+		awk -F '\t' -v d="$dir" '$1 != d' "$map_file" >"$tmp"
+		mv "$tmp" "$map_file"
+		chmod 600 "$map_file"
+	fi
+	rm -f "${identity_dir}/${slug}.config"
+	refresh
+	echo "已移除 ${dir}" >&2
+	;;
+refresh)
+	refresh
+	;;
+*)
+	usage
+	;;
+esac

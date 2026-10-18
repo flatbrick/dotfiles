@@ -24,10 +24,14 @@
 │   ├── .chezmoidata/
 │   │   └── git.yaml
 │   ├── .chezmoiignore
+│   ├── .chezmoiremove
 │   ├── .chezmoiscripts/
 │   │   ├── run_once_before_00_homebrew.sh.tmpl
 │   │   └── run_onchange_after_10_brew-bundle.sh.tmpl
 │   ├── dot_gitconfig
+│   ├── dot_local/
+│   │   └── bin/
+│   │       └── executable_git-identity
 │   └── private_dot_config/
 │       ├── delta/
 │       │   └── config
