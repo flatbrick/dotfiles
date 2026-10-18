@@ -4,76 +4,30 @@
 
 ## 仓库结构
 
+以下按当前实际源文件展示配置来源与关键入口，不完整展开每个目录。
+各软件的配置文件、部署目标及维护方法见「使用与维护」中的指南。
+
 ```text
 .
-├── .chezmoiroot                    # 指定 home/ 为部署源
-├── .chezmoiversion                 # 最低 chezmoi 版本
-├── .gitignore                      # Git 忽略规则
-├── .github/workflows/
-│   └── ci.yaml                     # CI 工作流
-├── README.md
-├── install.sh                      # 安装 chezmoi 并部署配置
-├── scripts/                        # 仓库脚本，不部署
-│   └── readme-tree.sh
-├── docs/                           # 仓库文档，不部署
-│   ├── guides/
-│   │   ├── aerospace.md
-│   │   ├── cli-tools.md
-│   │   ├── ghostty.md
-│   │   ├── git.md
-│   │   ├── herdr.md
-│   │   ├── homebrew.md
-│   │   ├── karabiner.md
-│   │   ├── lazygit.md
-│   │   ├── mise.md
-│   │   └── yazi.md
-│   └── references/
-│       ├── chezmoi-layouts.md
-│       └── signalridge-dotfiles.md
-└── home/                           # chezmoi 部署源，按目标路径组织
-    ├── .chezmoi.toml.tmpl          # 本机选项、编辑器与差异展示
+├── .chezmoiroot            # 指定 home/ 为部署源
+├── .chezmoiversion         # 最低 chezmoi 版本
+├── .gitignore              # 仓库文件的 Git 忽略规则
+├── .github/workflows/      # CI 与 README 结构树检查
+├── install.sh              # 获取 chezmoi 并进入初始化、部署流程
+├── scripts/                # 仓库维护工具（README 结构树对齐）
+├── docs/                   # 仓库文档，不部署到主目录
+│   ├── guides/             # 各软件的配置、部署与使用指南
+│   └── references/         # 外部参考项目、调研与采用范围
+└── home/                   # chezmoi 部署源，按目标路径组织
+    ├── .chezmoi.toml.tmpl  # 初始化提问、本机数据与 chezmoi 工具设置
     ├── .chezmoidata/
-    │   ├── aerospace.yaml          # AeroSpace 浮动应用清单
-    │   └── git.yaml                # 默认 Git 身份数据
-    ├── .chezmoiignore              # 平台筛选与部署源内的杂项排除
-    ├── .chezmoiremove              # apply 时删除的旧目标
-    ├── .chezmoiscripts/
-    │   ├── run_once_before_00_homebrew.sh.tmpl
-    │   └── run_onchange_after_10_brew-bundle.sh.tmpl
-    ├── dot_gitconfig               # 仅含说明的 ~/.gitconfig
-    ├── dot_local/bin/
-    │   └── executable_git-identity # 本机 Git 身份管理命令
-    └── private_dot_config/
-        ├── aerospace/
-        │   └── aerospace.toml.tmpl
-        ├── bat/
-        │   └── config
-        ├── btop/
-        │   └── btop.conf
-        ├── delta/
-        │   └── config              # Git 与 chezmoi 共用的 delta 配置
-        ├── gh/
-        │   └── private_config.yml
-        ├── ghostty/
-        │   └── config              # Ghostty 终端配置
-        ├── git/
-        │   ├── config.tmpl         # Git 身份与设置
-        │   ├── ignore
-        │   └── message
-        ├── herdr/
-        │   └── config.toml
-        ├── homebrew/
-        │   └── Brewfile            # Homebrew 安装清单
-        ├── lazygit/
-        │   └── config.yml
-        ├── mise/
-        │   └── config.toml.tmpl
-        ├── private_karabiner/
-        │   └── private_karabiner.json
-        └── yazi/
-            ├── yazi.toml
-            ├── keymap.toml
-            └── theme.toml
+    │   ├── aerospace.yaml  # AeroSpace 浮动应用清单
+    │   └── git.yaml        # 默认 Git 身份数据
+    ├── .chezmoiignore      # 平台筛选与部署源内的杂项排除
+    ├── .chezmoiscripts/    # Homebrew 安装与 Brewfile 应用管线
+    ├── dot_gitconfig       # ~/.gitconfig 占位，主配置在 ~/.config/git/
+    ├── dot_local/bin/      # 部署到 ~/.local/bin 的本机 Git 身份工具
+    └── private_dot_config/ # Git、终端、桌面、CLI 与工具安装清单
 ```
 
 仓库根目录放安装入口、文档、CI 和维护工具；`home/` 只放部署源。
