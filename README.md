@@ -15,6 +15,8 @@
 ├── README.md
 ├── docs/
 │   ├── guides/
+│   │   ├── cli-tools.md
+│   │   ├── ghostty.md
 │   │   ├── git.md
 │   │   └── homebrew.md
 │   └── references/
@@ -33,7 +35,15 @@
 │   │   └── bin/
 │   │       └── executable_git-identity
 │   └── private_dot_config/
+│       ├── bat/
+│       │   └── config
+│       ├── btop/
+│       │   └── btop.conf
 │       ├── delta/
+│       │   └── config
+│       ├── gh/
+│       │   └── private_config.yml
+│       ├── ghostty/
 │       │   └── config
 │       ├── git/
 │       │   ├── config.tmpl
@@ -78,6 +88,8 @@ Git 提交编辑器仍为 `nvim`，不受此设置影响。
 
 | 文档 | 内容 |
 |---|---|
+| [命令行工具配置](docs/guides/cli-tools.md) | bat、btop、gh 的偏好与部署 |
+| [Ghostty 配置](docs/guides/ghostty.md) | 配置部署、字体主题与重载 |
 | [Git 配置](docs/guides/git.md) | 身份数据、配置部署、工具依赖与认证 |
 | [Homebrew 安装清单](docs/guides/homebrew.md) | 已纳管清单的部署、审阅与手动安装 |
 
@@ -88,3 +100,5 @@ Git 提交编辑器仍为 `nvim`，不受此设置影响。
 目录组织参考 [twpayne/dotfiles](https://github.com/twpayne/dotfiles)，
 配置按需参考 [signalridge/dotfiles](https://github.com/signalridge/dotfiles) 的 `a978087` 版本；
 采用范围以已纳管文件及对应指南为准，不整体部署参考仓库。
+
+Ghostty 参考 [lltx 的终端配置指南](https://gist.github.com/lltx/a61f98fdb761c9af7c5fd6cbfe963842)，详见其使用指南。
